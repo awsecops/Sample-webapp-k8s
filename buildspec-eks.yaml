@@ -31,13 +31,13 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...          
-      - docker build -t 462748563487.dkr.ecr.us-west-2.amazonaws.com/portal:${BUILD_NUMBER} .
+      - docker build -t 462748563487.dkr.ecr.us-west-2.amazonaws.com/portal:latest .
 
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 462748563487.dkr.ecr.us-west-2.amazonaws.com/portal:${BUILD_NUMBER}
+      - docker push 462748563487.dkr.ecr.us-west-2.amazonaws.com/portal:latest
       - echo Push the latest image to cluster
-      - kubectl set image deployment/shopping shopping=462748563487.dkr.ecr.us-west-2.amazonaws.com/portal:${BUILD_NUMBER} --record -n live
-      - kubectl rollout status deployment shopping -n live
+      - kubectl apply -f portal-deploy.yml 
+      - kubectl rollout restart -f portal-deploy.yml
