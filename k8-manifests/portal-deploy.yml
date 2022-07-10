@@ -3,12 +3,12 @@ kind: Deployment
 metadata:
   metadata:
   labels:
-    app.kubernetes.io/name: shopping
-    app.kubernetes.io/instance: shopping
+    app.kubernetes.io/name: eshop
+    app.kubernetes.io/instance: eshop
     app.kubernetes.io/version: '1.0.0'
     app.kubernetes.io/managed-by: kubectl
-  name: shopping
-  namespace: live
+  name: eshop
+  namespace: stage
 spec:
   replicas: 2
   strategy:
@@ -18,14 +18,14 @@ spec:
       maxUnavailable: 1
   selector:
     matchLabels:
-      app: shopping
+      app: eshop
   template:
     metadata:
       labels:
-        app: shopping
+        app: eshop
     spec:
       containers:
-      - name: shopping
+      - name: eshop
         image: 462748563487.dkr.ecr.us-west-2.amazonaws.com/portal:latest
         ports:
         - containerPort: 80
